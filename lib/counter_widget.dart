@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:highfives_ui/config_reader.dart';
 import 'package:highfives_ui/home_page.dart/index.dart';
+// import 'package:highfives_ui/services/Identity/signup/signup.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {

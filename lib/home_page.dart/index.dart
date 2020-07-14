@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:highfives_ui/services/Identity/signup/signup.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,6 +7,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  SignUpService _signUpService = SignUpService();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -92,9 +95,13 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.all(10),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  'WELCOME HERE MOTHERFUCKERS .......',
-                  style: t2,
+                child: FlatButton(
+                  color: Colors.red,
+                  onPressed: () async {
+                    var res = await _signUpService.signUp();
+                    print(res.toString());
+                  },
+                  child: Text('success'),
                 ),
               ),
             ),
