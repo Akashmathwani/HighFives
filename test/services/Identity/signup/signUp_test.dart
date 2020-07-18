@@ -9,8 +9,11 @@ main() {
   group('signUp Cases', () {
     test('should return token if sign up is success', () async {
       final client = SignUpMockClient();
-      when(client.signUp()).thenAnswer((_) async => signUpResMock);
-      var res = await client.signUp();
+      String email = 'abc@mail.com';
+      String password = 'highfives';
+      when(client.signUp(email, password))
+          .thenAnswer((_) async => signUpResMock);
+      var res = await client.signUp(email, password);
       print(res);
       expect(res['status'], 200);
       expect(res['refreshToken'] != null, true);

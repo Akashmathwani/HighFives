@@ -12,6 +12,7 @@
 
 # Secrets
 /config
+test/.test_coverage.dart
 
 # IntelliJ related
 *.iml
