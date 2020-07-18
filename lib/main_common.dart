@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:highfives_ui/appStart.dart';
 import 'package:highfives_ui/config_reader.dart';
-import 'package:highfives_ui/counter_widget.dart';
 import 'package:highfives_ui/environment.dart';
 import 'package:provider/provider.dart';
 
