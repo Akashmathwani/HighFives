@@ -1,28 +1,32 @@
-import 'package:highfives_ui/constants/const/token.dart';
 import 'package:highfives_ui/resources/Identity/I_Identity.dart';
-import 'package:highfives_ui/services/Identity/signup/signup.dart';
+import 'package:highfives_ui/constants/const/platform.dart';
+import 'package:highfives_ui/resources/Identity/WebIdentity.dart';
+import 'package:highfives_ui/resources/Identity/appIdentity.dart';
 
+// A WRAPPER TO IDENTIFY RESOURCES BASED ON WEB AND APPS
 class IdentityResource extends I_Identity {
-  final _signupService = SignUpService();
+  final _webIdentity = WebIdentity();
+  final _appIdentity = AppIdentity();
+  dynamic _platform;
+
+  IdentityResource(this._platform);
 
   @override
   Future<bool> signUp(String email, String password) async {
-    try {
-      var res = await _signupService.signUp(email, password);
-      if (res != null) {
-        await this.storeToken(res['accessToken'], TokenType.AcceessToken);
-        await this.storeToken(res['refreshToken'], TokenType.RefreshToken);
-        return true;
-      }
-    } catch (e) {
-      //TODO:LOG_ERROR***
-      return false;
+    print(_platform);
+    switch (_platform) {
+      case PLATFORMS.Web:
+        return await _webIdentity.signUp(email, password);
+      case PLATFORMS.Android:
+      case PLATFORMS.Ios:
+      case PLATFORMS.App:
+      default:
+        return await _appIdentity.signUp(email, password);
     }
-    return false;
   }
 
   @override
-  void login() {
+  void login(String email, String password) {
     return null;
   }
 

@@ -3,6 +3,8 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:highfives_ui/resources/Identity/main.dart';
 import 'package:highfives_ui/screens/home_page/main.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:highfives_ui/utils/platform.dart';
 
 //TODO REMOVE THIS:: THIS IS ONLY FOR TESTING IDENTITY LOGIC
 // WE SHOULD MAKE FUNCTIONS FRO DIFFERENT COMPONENTS> NOT MAKING IN THIS AS DEMO
@@ -16,7 +18,8 @@ class _DemoLoginState extends State<DemoLogin> {
   final _formKey = GlobalKey<FormState>();
   String _email;
   String _password;
-  final _identityResource = IdentityResource();
+
+  final _identityResource = IdentityResource(findPlatform());
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +31,8 @@ class _DemoLoginState extends State<DemoLogin> {
         color: Colors.white54,
         child: Center(
           child: Container(
-            width: Platform.isIOS || Platform.isAndroid
-                ? size.width * 0.9
-                : size.width * 0.5,
-            height: Platform.isIOS || Platform.isAndroid
-                ? size.height * 0.5
-                : size.height * 0.5,
+            width: kIsWeb ? size.width * 0.5 : size.width * 0.9,
+            height: kIsWeb ? size.height * 0.5 : size.height * 0.5,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
