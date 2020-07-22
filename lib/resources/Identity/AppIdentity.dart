@@ -9,7 +9,7 @@ class AppIdentity extends I_Identity with AppLocalStorage {
   @override
   Future<bool> signUp(String email, String password) async {
     try {
-      var res = await _signupService.signUp(email, password);
+      var res = await _signupService.attemptSignUp(email, password);
       if (res != null) {
         await this.storeToken(res['accessToken'], TokenType.AcceessToken);
         await this.storeToken(res['refreshToken'], TokenType.RefreshToken);

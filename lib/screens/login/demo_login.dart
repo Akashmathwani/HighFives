@@ -127,11 +127,9 @@ class _DemoLoginState extends State<DemoLogin> {
                               onPressed: () async {
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
-                                  print(_email + 'email');
-                                  print(_password + 'pwd');
                                   var res = await this
                                       ._attemptSignUp(_email, _password);
-                                  if (res != null) {
+                                  if (res != null && res) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
