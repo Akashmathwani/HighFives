@@ -1,25 +1,29 @@
-import 'package:highfives_ui/services/Identity/mock/allmock.dart';
-// import 'package:http/http.dart' as http;
+import 'package:highfives_ui/services/request/global_request.dart';
 
 class SignUpService {
-  Future<Map<dynamic, dynamic>> signUp(String email, String password) async {
-    print('here');
-    const url = 'https://jsonplaceholder.typicode.com/users';
-    // var response = await http.get(url);
-    // print(response.body);
-    var a = signUpResMock;
-    print(a);
-    // var request = await new HttpClient().getUrl(Uri.parse(url));
-    // var res = await request.close();
-    // print(res);
-    // await for (var contents in res.transform(convert.Utf8Decoder())) {
-    //   print('^^^^' + contents);
-    // }
+  final httpClient = UiHttpClient();
+  // final httpClient2 = UiHttpClient();
+  Future<Map<String, dynamic>> attemptSignUp(
+      String email, String password, String role) async {
+    const path = '/identity/loginWithEmailAndPasswordAndRole';
 
-    // print('resssssss' +)
+    final user = {'email': email, 'password': password, 'role': role};
+    try {
+      var response = await httpClient.getData(path, null, user);
 
-    //TODO:THROW_ERROR  //this error to be catch in resources and should be added to logging
-
-    return signUpResMock;
+      // var response2 = await httpClient2.getData(path, null);
+      if (response.statusCode == 200 &&
+          response.data != null &&
+          response.data is Map) {
+        return response.data;
+      } else {
+        //TODO:LOG_ERROR
+        //TODO:THROW_ERROR  //this error to be catch in resources and should be added to logging
+        throw Exception('Failed to signUp From SignUpService');
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 }
