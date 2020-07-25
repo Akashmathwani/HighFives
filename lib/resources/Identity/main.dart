@@ -12,16 +12,16 @@ class IdentityResource extends I_Identity {
   IdentityResource(this._platform);
 
   @override
-  Future<bool> signUp(String email, String password) async {
+  Future<bool> signUp(String email, String password, String role) async {
     print(_platform);
     switch (_platform) {
       case PLATFORMS.Web:
-        return await _webIdentity.signUp(email, password);
+        return await _webIdentity.signUp(email, password, role);
       case PLATFORMS.Android:
       case PLATFORMS.Ios:
       case PLATFORMS.App:
       default:
-        return await _appIdentity.signUp(email, password);
+        return await _appIdentity.signUp(email, password, role);
     }
   }
 

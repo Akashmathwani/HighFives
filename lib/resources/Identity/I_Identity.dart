@@ -4,7 +4,7 @@
 
 abstract class I_Identity {
   void login(String e, String p);
-  Future<bool> signUp(String e, String p);
+  Future<bool> signUp(String e, String p, String role);
   void refresh();
   void logout();
 }

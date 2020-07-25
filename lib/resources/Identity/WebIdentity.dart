@@ -7,10 +7,9 @@ class WebIdentity extends I_Identity with WebLocalStorage {
   final _signupService = SignUpService();
 
   @override
-  Future<bool> signUp(String email, String password) async {
-    print('web identity signup');
+  Future<bool> signUp(String email, String password, String role) async {
     try {
-      var res = await _signupService.attemptSignUp(email, password);
+      var res = await _signupService.attemptSignUp(email, password, role);
       if (res != null &&
           res['accessToken'] != null &&
           res['refreshToken'] != null) {

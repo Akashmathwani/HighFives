@@ -3,7 +3,6 @@ import 'package:highfives_ui/services/Identity/mock/allmock.dart';
 import 'package:highfives_ui/services/Identity/signup/signup.dart';
 import 'package:highfives_ui/services/request/global_request.dart';
 import 'package:mockito/mockito.dart';
-import 'package:http/http.dart' as http;
 
 class MockClient extends Mock implements UiHttpClient {}
 
@@ -20,7 +19,7 @@ main() {
 
       // when(httpClient.getData(path, null)).thenAnswer(
       //     (_) async => http.Response(signUpResMock.toString(), 201));
-      var res = await signUpService.attemptSignUp(email, password);
+      var res = await signUpService.attemptSignUp(email, password, null);
 
       expect(res != null, true);
       expect(res['status'], 200);
@@ -32,7 +31,7 @@ main() {
       final httpClient = MockClient();
       when(httpClient.getData(any, any))
           .thenAnswer((_) => Future.value(signUpResMock));
-      var res = await signUpService.attemptSignUp(email, password);
+      var res = await signUpService.attemptSignUp(email, password, null);
 
       expect(res == null, true);
     });

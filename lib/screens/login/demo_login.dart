@@ -153,6 +153,6 @@ class _DemoLoginState extends State<DemoLogin> {
   }
 
   Future<dynamic> _attemptSignUp(String email, String password) async {
-    return await _identityResource.signUp(email, password);
+    return await _identityResource.signUp(email, password, 'tnp');
   }
 }
