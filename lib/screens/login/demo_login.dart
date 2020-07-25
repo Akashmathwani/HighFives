@@ -31,8 +31,8 @@ class _DemoLoginState extends State<DemoLogin> {
         color: Colors.white54,
         child: Center(
           child: Container(
-            width: kIsWeb ? size.width * 0.5 : size.width * 0.9,
-            height: kIsWeb ? size.height * 0.5 : size.height * 0.5,
+            width: kIsWeb ? size.width * 0.6 : size.width * 0.9,
+            height: kIsWeb ? size.height * 0.7 : size.height * 0.5,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -113,30 +113,62 @@ class _DemoLoginState extends State<DemoLogin> {
                           ),
                           child: InkWell(
                             splashColor: Colors.black,
-                            child: FlatButton(
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  'Submit',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.orange,
-                                      fontSize: 20),
+                            child: Row(
+                              children: [
+                                FlatButton(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      'SignUp',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.orange,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                     if (_formKey.currentState.validate()) {
+                                        _formKey.currentState.save();
+                                        var res = await this
+                                            ._attemptSignUp(_email, _password);
+                                        if (res != null && res) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => MainHome()));
+                                        }
+                                      }
+                                  },
                                 ),
-                              ),
-                              onPressed: () async {
-                                if (_formKey.currentState.validate()) {
-                                  _formKey.currentState.save();
-                                  var res = await this
-                                      ._attemptSignUp(_email, _password);
-                                  if (res != null && res) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => MainHome()));
-                                  }
-                                }
-                              },
+                                FlatButton(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      'Login',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.orange,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+                                      print(_email + 'email');
+                                      print(_password + 'pwd');
+                                      var res = await this
+                                          ._attemptLogin(_email, _password);
+                                      print(res);
+                                      if (res != null) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => MainHome()));
+                                      }
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -154,5 +186,9 @@ class _DemoLoginState extends State<DemoLogin> {
 
   Future<dynamic> _attemptSignUp(String email, String password) async {
     return await _identityResource.signUp(email, password, 'tnp');
+  }
+
+  Future<dynamic> _attemptLogin(String email, String password) async {
+    return await _identityResource.login(email, password, 'tnp');
   }
 }

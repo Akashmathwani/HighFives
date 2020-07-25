@@ -7,7 +7,7 @@ class AppLocalStorage {
   //By Default Stores as AccessToken if type is not sent
   Future<void> storeToken(String token, dynamic type) async {
     switch (type) {
-      case TokenType.AcceessToken:
+      case TokenType.AccessToken:
         await _storage.write(key: ACCESSTOKENKEY, value: token);
         break;
       case TokenType.RefreshToken:
@@ -22,7 +22,7 @@ class AppLocalStorage {
   //By Default reads AccessToken if type is not sent
   Future<String> readToken(dynamic type) async {
     switch (type) {
-      case TokenType.AcceessToken:
+      case TokenType.AccessToken:
         return await _storage.read(key: ACCESSTOKENKEY);
       case TokenType.RefreshToken:
         return await _storage.read(key: REFRESHTOKENKEY);
@@ -34,7 +34,7 @@ class AppLocalStorage {
   //By Default deletes AccessToken if type is not sent
   Future<void> deleteToken(dynamic type) async {
     switch (type) {
-      case TokenType.AcceessToken:
+      case TokenType.AccessToken:
         return await _storage.delete(key: ACCESSTOKENKEY);
       case TokenType.RefreshToken:
         return await _storage.delete(key: REFRESHTOKENKEY);
