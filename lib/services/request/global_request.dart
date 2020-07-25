@@ -1,19 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:ansicolor/ansicolor.dart';
-import 'dart:convert';
 
 class UiHttpClient {
   var _dio;
   final baseUrl = 'http://localhost:2020'; //TODO Change later
   BaseOptions _options;
-  int i = 0;
-
-  //THESE ALL ARE NOT THE PROPERTIES OF HTTP CLIENT THEREFORE NEEDS TO GO TO LOGGER
-  AnsiPen greenPen = AnsiPen()..green();
-  AnsiPen redPen = AnsiPen()..red();
-  AnsiPen redTextBlueBackgroundPen = AnsiPen()
-    ..blue(bg: true)
-    ..red();
 
   factory UiHttpClient() {
     return _uiHttpClientSingleton;
@@ -37,22 +28,10 @@ class UiHttpClient {
     return _dio;
   }
 
-  getData(String path, Map<String, String> headers,
-      Map<String, String> body) async {
-    i++;
-    Stopwatch stopwatch = new Stopwatch()..start();
-    //TODO: LOGGER AND PRINT INSIDE LOGGER. USE ANSIPEN IN DEV ENV ONLY -->  CAN READ CONFIGS
-    print(greenPen('$i') +
-        redPen('--- GET --> ') +
-        '$baseUrl$path --> requestSent 0.0 sec');
+  getData(String path, Map<String, String> headers) async {
     try {
-      var response = await dio.get(baseUrl + path, data: body);
-      print('$i <--- GET <-- $baseUrl$path <-- response ' +
-          redTextBlueBackgroundPen('${stopwatch.elapsed} sec'));
-      if (response.statusCode == 200) {
-        return response;
-      }
-      return null;
+      var response = await dio.get(baseUrl + path);
+      return response;
     } on DioError catch (e) {
       //TODO : LOGGING
 
@@ -67,6 +46,30 @@ class UiHttpClient {
         print(e.request);
         print(e.message);
       }
+      return null;
+    }
+  }
+
+  postData(String path, Map<String, String> headers,
+      Map<String, String> body) async {
+    try {
+      var response = await dio.post(baseUrl + path, data: body);
+      return response;
+    } on DioError catch (e) {
+      //TODO : LOGGING
+
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        print(e.response.data);
+        print(e.response.headers);
+        print(e.response.request);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        print(e.request);
+        print(e.message);
+      }
+      return null;
     }
   }
 }
