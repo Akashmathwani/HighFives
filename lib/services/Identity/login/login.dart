@@ -8,7 +8,7 @@ class LoginService {
 
     final user = {'email': email, 'password': password, 'role': role};
     try {
-      var response = await httpClient.getData(path, null);
+      var response = await httpClient.postData(path, null, user);
 
       // var response2 = await httpClient2.getData(path, null);
       if (response.statusCode == 200 &&

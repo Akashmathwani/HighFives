@@ -26,8 +26,8 @@ class _MainHomeState extends State<MainHome> {
                   "https://c4.wallpaperflare.com/wallpaper/500/442/354/outrun-vaporwave-hd-wallpaper-preview.jpg"),
             ),
             FlatButton(
-              onPressed: () {
-                _logout();
+              onPressed: () async {
+                await _logout();
                 Navigator.push(context, MaterialPageRoute(builder: (context) => DemoLogin()));
               },
               child: Text("Logout")
@@ -38,8 +38,8 @@ class _MainHomeState extends State<MainHome> {
     );
   }
 
-  void _logout(){
-     _identityResource.logout();
+  Future<bool> _logout()async {
+     return await _identityResource.logout();
   }
 
 }

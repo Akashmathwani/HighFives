@@ -8,5 +8,5 @@ abstract class I_Identity {
   Future<bool> login(String e, String p, String role);
   Future<bool> findtoken(dynamic token);
   void refresh();
-  void logout();
+  Future<bool> logout();
 }

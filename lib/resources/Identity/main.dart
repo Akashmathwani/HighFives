@@ -54,20 +54,17 @@ class IdentityResource extends I_Identity {
   }
 
   @override
-  void logout() {
+  Future<bool> logout() async {
     print(_platform);
     switch (_platform) {
       case PLATFORMS.Web:
-        _webIdentity.logout();
-        break;
+        return await _webIdentity.logout();
       case PLATFORMS.Android:
       case PLATFORMS.Ios:
       case PLATFORMS.App:
       default:
-        _appIdentity.logout();
-        break;
+        return await _appIdentity.logout();
     }
-    return null;
   }
 
   @override
