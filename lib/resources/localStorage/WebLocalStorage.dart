@@ -8,7 +8,7 @@ class WebLocalStorage {
   //By Default Stores as AccessToken if type is not sent
   Future<void> storeToken(String token, dynamic type) async {
     switch (type) {
-      case TokenType.AcceessToken:
+      case TokenType.AccessToken:
         _localStorage[ACCESSTOKENKEY] = token;
         break;
       case TokenType.RefreshToken:
@@ -23,7 +23,7 @@ class WebLocalStorage {
   //By Default reads AccessToken if type is not sent`
   Future<String> readToken(dynamic type) async {
     switch (type) {
-      case TokenType.AcceessToken:
+      case TokenType.AccessToken:
         return _localStorage.containsKey(ACCESSTOKENKEY)
             ? _localStorage[ACCESSTOKENKEY]
             : "";
@@ -41,7 +41,7 @@ class WebLocalStorage {
   //By Default deletes AccessToken if type is not sent
   Future<void> deleteToken(dynamic type) async {
     switch (type) {
-      case TokenType.AcceessToken:
+      case TokenType.AccessToken:
         return _localStorage.remove(ACCESSTOKENKEY);
       case TokenType.RefreshToken:
         return _localStorage.remove(REFRESHTOKENKEY);
