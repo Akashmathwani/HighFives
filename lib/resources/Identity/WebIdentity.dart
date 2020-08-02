@@ -52,7 +52,10 @@ class WebIdentity extends I_Identity with WebLocalStorage {
   Future<bool> findtoken(dynamic tokenType) async {
     try {
       var token = await this.readToken(tokenType);
-      if (token == null) token = "";
+      if (token.length == 0) {
+        print("JWT Not found");
+        return false;
+      }
 
       var tokenComponents = token.split(".");
       if (tokenComponents.length != 3) {
