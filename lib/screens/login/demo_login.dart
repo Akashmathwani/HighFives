@@ -26,7 +26,7 @@ class _DemoLoginState extends State<DemoLogin> {
       body: Container(
         width: size.width,
         height: size.height,
-        color: Colors.white54,
+        color: Colors.amber,
         child: Center(
           child: Container(
             width: kIsWeb ? size.width * 0.6 : size.width * 0.9,
@@ -125,17 +125,18 @@ class _DemoLoginState extends State<DemoLogin> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                     if (_formKey.currentState.validate()) {
-                                        _formKey.currentState.save();
-                                        var res = await this
-                                            ._attemptSignUp(_email, _password);
-                                        if (res != null && res) {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => MainHome()));
-                                        }
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+                                      var res = await this
+                                          ._attemptSignUp(_email, _password);
+                                      if (res != null && res) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MainHome()));
                                       }
+                                    }
                                   },
                                 ),
                                 FlatButton(
@@ -161,7 +162,8 @@ class _DemoLoginState extends State<DemoLogin> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => MainHome()));
+                                                builder: (context) =>
+                                                    MainHome()));
                                       }
                                     }
                                   },
