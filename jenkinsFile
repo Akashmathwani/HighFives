@@ -2,7 +2,7 @@ node {
   dir('demo') {
       // Mark the code checkout 'stage'....
       stage('Checkout from GitHub') {
-          git url: 'https://github.com/jldeen/swampup2017'
+          git url: 'https://github.com/Akashmathwani/HighFives.git'
       }
 
       // Build and Deploy to ACR 'stage'... 
