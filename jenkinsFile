@@ -1,11 +1,33 @@
 node {
-    checkout scm
+    def app
 
-    docker.withRegistry('https://hub.docker.com/', 'docker-cred') {
+    stage('Clone repository') {
+        /* Cloning the Repository to our Workspace */
 
-        def customImage = docker.build("newImage:${env.BUILD_ID}")
+        checkout scm
+    }
 
-        /* Push the container to the custom Registry */
-        customImage.push()
+    stage('Build image') {
+        /* This builds the actual image */
+
+        app = docker.build("akashmathwani/highfivesui")
+    }
+
+    stage('Test image') {
+        
+        app.inside {
+            echo "Tests passed"
+        }
+    }
+
+    stage('Push image') {
+        /* 
+			You would need to first register with DockerHub before you can push images to your account
+		*/
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("viaJenkins")
+            } 
+                echo "Trying to Push Docker Build to DockerHub"
     }
 }
