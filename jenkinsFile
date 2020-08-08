@@ -1,41 +1,11 @@
 node {
-  dir('demo') {
-      // Mark the code checkout 'stage'....
-      stage('Checkout from GitHub') {
-          git url: 'https://github.com/Akashmathwani/HighFives.git'
-      }
+    checkout scm
 
-      // Build and Deploy to ACR 'stage'... 
-      stage('Build and Push to Azure Container Registry') {
-          app = docker.build('highfivesdev.azurecr.io/testImage')
-          docker.withRegistry('https://acrjdtest.azurecr.io', 'acr_credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push('latest')
-          }
-      }
+    docker.withRegistry('https://hub.docker.com/', 'docker-cred') {
 
-      stage('Docker Pull and Run') {
-          app = docker.image('acrjdtest.azurecr.io/testImage:latest')
-          docker.withRegistry('https://acrjdtest.azurecr.io', 'acr_credentials') {
-          app.pull()
-          app.run('--name node-demo -p 1000:80')
-          }
-      }
-  }
+        def customImage = docker.build("newImage:${env.BUILD_ID}")
+
+        /* Push the container to the custom Registry */
+        customImage.push()
+    }
 }
-
-
-/*
-
-      stage('Open SSH Tunnel to Azure Swarm Cluster') {
-          // Open SSH Tunnel to ACS Cluster
-          sshagent(['acs_key']) {
-              sh 'ssh -fNL 2375:localhost:2375 -p 2200 jldeen@dnsprefix.location.cloudapp.azure.com -o StrictHostKeyChecking=no -o ServerAliveInterval=240 && echo "ACS SSH Tunnel successfully opened..."'
-          }
-          // Check tunnel is open and set DOCKER_HOST env var
-          env.DOCKER_HOST=':2375'
-          sh 'echo "DOCKER_HOST is $DOCKER_HOST"'
-          sh 'docker info'
-      }
-
-*/
