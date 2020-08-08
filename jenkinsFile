@@ -25,7 +25,7 @@ node {
 			You would need to first register with DockerHub before you can push images to your account
 		*/
         docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
-                app.push("viaJenkinsBuild ${env.BUILD_NUMBER}")
+                app.push("viaJenkinsBuild${env.BUILD_NUMBER}")
             } 
         echo "Trying to Push Docker Build to DockerHub"
     }
@@ -34,10 +34,10 @@ node {
         /* 
 			You would need to first register with DockerHub before you can push images to your account
 		*/
-        docker.withRegistry('highfivesdev.azurecr.io', 'azurecr-cred') {
-                app.push("viaJenkinsBuild ${env.BUILD_NUMBER}")
+        docker.withRegistry('https://highfivesdev.azurecr.io', 'azurecr-cred') {
+                app.push("viaJenkinsBuild${env.BUILD_NUMBER}")
             }
-        echo "Trying to Push Docker Build to DockerHub"
+        echo "Trying to Push Docker Build to AZURE CONTAINER REGISTERY"
     }
     
 }
