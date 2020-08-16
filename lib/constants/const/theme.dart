@@ -11,67 +11,91 @@ final DARKTHEME = ThemeData(
   backgroundColor: const Color(0xFF212121),
   accentColor: Colors.white,
   accentIconTheme: IconThemeData(color: Colors.black),
-  dividerColor: Colors.black12,
+  dividerColor: Colors.orange,
   fontFamily: customFontFamily,
   textTheme: TextTheme(
-    headline1: TextStyle(fontSize: 40, fontFamily: customFontFamily),
-    headline2: TextStyle(fontSize: 30, fontFamily: customFontFamily),
+    headline1: TextStyle(
+        fontSize: 50,
+        fontFamily: customFontFamily,
+        letterSpacing: 0.64,
+        fontWeight: FontWeight.bold),
+    headline2: TextStyle(
+      fontSize: 44,
+      fontFamily: customFontFamily,
+      letterSpacing: 0.64,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    ),
     headline3: TextStyle(fontSize: 25, fontFamily: customFontFamily),
     headline4: TextStyle(
-        fontSize: 20,
+        fontSize: 15,
         fontFamily: customFontFamily,
         fontWeight: FontWeight.w500,
-        color: Colors.black),
-    headline5: TextStyle(fontSize: 15, fontFamily: customFontFamily),
+        color: Colors.white,
+        letterSpacing: 0.64),
+    headline5: TextStyle(
+        fontSize: 13,
+        fontFamily: customFontFamily,
+        color: Colors.black,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.64),
+    headline6: TextStyle(
+        fontSize: 13,
+        fontFamily: customFontFamily,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.64),
     bodyText1: TextStyle(fontSize: 20, fontFamily: customFontFamily),
     bodyText2: TextStyle(fontSize: 15, fontFamily: customFontFamily),
   ),
 );
 
 final LIGHTTHEME = ThemeData(
-    // primarySwatch: Colors.black,
-    primaryColor: Colors.white,
-    brightness: Brightness.light,
-    backgroundColor: const Color(0xFFE5E5E5),
-    accentColor: Colors.black,
-    accentIconTheme: IconThemeData(color: Colors.white),
-    dividerColor: Colors.white54,
-    fontFamily: customFontFamily,
-    textTheme: TextTheme(
-      headline1: TextStyle(
-          fontSize: 50,
-          fontFamily: customFontFamily,
-          letterSpacing: 0.64,
-          fontWeight: FontWeight.bold),
-      headline2: TextStyle(
-        fontSize: 44,
+  // primarySwatch: Colors.black,
+  primaryColor: Colors.white,
+  brightness: Brightness.light,
+  backgroundColor: const Color(0xFFE5E5E5),
+  accentColor: Colors.black,
+  accentIconTheme: IconThemeData(color: Colors.white),
+  dividerColor: Colors.orange,
+  fontFamily: customFontFamily,
+  textTheme: TextTheme(
+    headline1: TextStyle(
+        fontSize: 50,
         fontFamily: customFontFamily,
         letterSpacing: 0.64,
+        fontWeight: FontWeight.bold),
+    headline2: TextStyle(
+      fontSize: 44,
+      fontFamily: customFontFamily,
+      letterSpacing: 0.64,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+    ),
+    headline3: TextStyle(fontSize: 25, fontFamily: customFontFamily),
+    headline4: TextStyle(
+        fontSize: 15,
+        fontFamily: customFontFamily,
+        fontWeight: FontWeight.w500,
         color: Colors.black,
-        fontWeight: FontWeight.bold,
-      ),
-      headline3: TextStyle(fontSize: 25, fontFamily: customFontFamily),
-      headline4: TextStyle(
-          fontSize: 15,
-          fontFamily: customFontFamily,
-          fontWeight: FontWeight.w500,
-          color: Colors.black,
-          letterSpacing: 0.64),
-      headline5: TextStyle(
-          fontSize: 13,
-          fontFamily: customFontFamily,
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.64),
-      headline6: TextStyle(
-          fontSize: 13,
-          fontFamily: customFontFamily,
-          color: Colors.black,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.64),
-      bodyText1: TextStyle(fontSize: 20, fontFamily: customFontFamily),
-      bodyText2: TextStyle(fontSize: 15, fontFamily: customFontFamily),
-    ));
+        letterSpacing: 0.64),
+    //opposite
+    headline5: TextStyle(
+        fontSize: 13,
+        fontFamily: customFontFamily,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.64),
+    headline6: TextStyle(
+        fontSize: 13,
+        fontFamily: customFontFamily,
+        color: Colors.black,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.64),
+    bodyText1: TextStyle(fontSize: 20, fontFamily: customFontFamily),
+    bodyText2: TextStyle(fontSize: 15, fontFamily: customFontFamily),
+  ),
+);
 
 // USE LIKE
 

@@ -1,8 +1,5 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:highfives_ui/constants/const/business.dart';
-import 'package:highfives_ui/constants/const/theme.dart';
 import 'package:highfives_ui/screens/login/logic.dart';
 import 'package:highfives_ui/utils/themeChanger.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +33,7 @@ class LoginUI extends StatelessWidget {
     return Container(
       width: size.width,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         boxShadow: [
           BoxShadow(
               color: Theme.of(context).accentColor.withOpacity(0.2),
@@ -63,10 +60,18 @@ class LoginUI extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              _themeChanger.setTheme(DARKTHEME);
+              _themeChanger.toggleTheme();
             },
-            child: Icon(Icons.access_alarms,
-                size: 40, color: Theme.of(context).accentColor),
+            child: Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.3),
+                border:
+                    Border.all(color: Theme.of(context).dividerColor, width: 1),
+              ),
+              child: Icon(Icons.brightness_3,
+                  size: 40, color: Theme.of(context).accentColor),
+            ),
           ),
           Row(
             children: [...getListOfNavHeadings(context)]..add(
@@ -117,7 +122,11 @@ class LoginUI extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             widthFactor: 0.55,
             child: Container(
-              // color: Colors.orange,
+              decoration: BoxDecoration(
+                border: Border(
+                    right: BorderSide(
+                        width: 1, color: Theme.of(context).dividerColor)),
+              ),
               child: Image(
                 image: AssetImage("assets/images/people_highfive.png"),
                 fit: BoxFit.contain,

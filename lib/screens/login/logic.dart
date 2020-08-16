@@ -38,7 +38,6 @@ class LoginLogic extends StatelessWidget {
                     child: TextFormField(
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'email...',
                       ),
                       validator: (value) {
                         if (value.isEmpty) return 'Please Enter Email !';
@@ -78,7 +77,6 @@ class LoginLogic extends StatelessWidget {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'password...',
                       ),
                       validator: (value) {
                         if (value.isEmpty || value.length <= 6)
@@ -111,7 +109,7 @@ class LoginLogic extends StatelessWidget {
                     print(_password + 'pwd');
                     var res = await this._attemptLogin(_email, _password);
                     print(res);
-                    if (res != null) {
+                    if (res != null && res) {
                       _formKey.currentState.reset();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => MainHome()));
