@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:highfives_ui/resources/Identity/main.dart';
 import 'package:highfives_ui/screens/home_page/main.dart';
 import 'package:highfives_ui/utils/platform.dart';
+import 'package:highfives_ui/utils/responsiveLayout.dart';
 
 class LoginLogic extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -24,7 +25,7 @@ class LoginLogic extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: FractionallySizedBox(
-              widthFactor: 0.67,
+              widthFactor: ResponsiveLayout.isLargeScreen(context) ? 0.67 : 1,
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
@@ -62,7 +63,7 @@ class LoginLogic extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: FractionallySizedBox(
-              widthFactor: 0.67,
+              widthFactor: ResponsiveLayout.isLargeScreen(context) ? 0.67 : 1,
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
