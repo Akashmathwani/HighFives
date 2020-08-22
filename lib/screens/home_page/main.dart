@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:highfives_ui/logging/logger.dart';
 import 'package:highfives_ui/resources/Identity/main.dart';
 import 'package:highfives_ui/screens/login/demo_login.dart';
 import 'package:highfives_ui/utils/platform.dart';
@@ -10,8 +11,8 @@ class MainHome extends StatefulWidget {
 }
 
 class _MainHomeState extends State<MainHome> {
-
   final _identityResource = IdentityResource(findPlatform());
+  final log = getLogger('_MainHomeState');
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +27,20 @@ class _MainHomeState extends State<MainHome> {
                   "https://c4.wallpaperflare.com/wallpaper/500/442/354/outrun-vaporwave-hd-wallpaper-preview.jpg"),
             ),
             FlatButton(
-              onPressed: () async {
-                await _logout();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => DemoLogin()));
-              },
-              child: Text("Logout")
-            )
+                onPressed: () async {
+                  await _logout();
+                  log.v('Logout Successful');
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DemoLogin()));
+                },
+                child: Text("Logout"))
           ],
         ),
       ),
     );
   }
 
-  Future<bool> _logout()async {
-     return await _identityResource.logout();
+  Future<bool> _logout() async {
+    return await _identityResource.logout();
   }
-
 }

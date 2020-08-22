@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:highfives_ui/logging/logger.dart';
 import 'package:highfives_ui/resources/Identity/main.dart';
 import 'package:highfives_ui/screens/home_page/main.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -14,6 +15,7 @@ class DemoLogin extends StatefulWidget {
 
 class _DemoLoginState extends State<DemoLogin> {
   final _formKey = GlobalKey<FormState>();
+  final log = getLogger('_DemoLoginState');
   String _email;
   String _password;
 
@@ -125,17 +127,19 @@ class _DemoLoginState extends State<DemoLogin> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                     if (_formKey.currentState.validate()) {
-                                        _formKey.currentState.save();
-                                        var res = await this
-                                            ._attemptSignUp(_email, _password);
-                                        if (res != null && res) {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => MainHome()));
-                                        }
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+                                      var res = await this
+                                          ._attemptSignUp(_email, _password);
+                                      if (res != null && res) {
+                                        log.v('Signup successful');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MainHome()));
                                       }
+                                    }
                                   },
                                 ),
                                 FlatButton(
@@ -158,10 +162,15 @@ class _DemoLoginState extends State<DemoLogin> {
                                           ._attemptLogin(_email, _password);
                                       print(res);
                                       if (res != null) {
+                                        log.v('Login successful');
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => MainHome()));
+                                                builder: (context) =>
+                                                    MainHome()));
+                                      }
+                                      else{
+                                        log.e('Login failed');
                                       }
                                     }
                                   },

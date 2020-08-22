@@ -1,17 +1,17 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:highfives_ui/constants/const/token.dart';
+import 'package:highfives_ui/logging/logger.dart';
 import 'package:highfives_ui/resources/Identity/main.dart';
 import 'package:highfives_ui/screens/home_page/main.dart';
 import 'package:highfives_ui/screens/login/demo_login.dart';
 import 'package:provider/provider.dart';
 import 'package:highfives_ui/utils/platform.dart';
 
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   final _identityResource = IdentityResource(findPlatform());
+  final log = getLogger('MyApp');
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +22,22 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: FutureBuilder(
-        future: _findtoken(TokenType.AccessToken),
-        builder: (context, snapshot) {
-          if(!snapshot.hasData) return CircularProgressIndicator();
-          if(snapshot.data != null && snapshot.data) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MainHome()));
-          }else {
-            return DemoLogin();
-          }
-        }
-      ),
+          future: _findtoken(TokenType.AccessToken),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return CircularProgressIndicator();
+            if (snapshot.data != null && snapshot.data) {
+              log.v('Navigate to main home page.');
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MainHome()));
+            } else {
+              log.e('Return to login screen.');
+              return DemoLogin();
+            }
+          }),
     );
   }
 
   Future<dynamic> _findtoken(dynamic tokenType) async {
     return await _identityResource.findtoken(tokenType);
   }
-
 }
