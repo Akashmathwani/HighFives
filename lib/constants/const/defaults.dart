@@ -1,0 +1,4 @@
+const DEFAULT_TNP_PROFILE_IMAGE =
+    "https://cdn6.f-cdn.com/contestentries/1386480/27705380/5b6717d525868_thumb900.jpg";
+
+//TODO MOVE THIS TO AZURE FS: CAN BE DELETED ON THIS SERVER
