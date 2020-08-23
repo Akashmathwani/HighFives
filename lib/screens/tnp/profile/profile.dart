@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:highfives_ui/constants/const/defaults.dart';
 import 'package:highfives_ui/constants/const/sideMenuItems.dart';
@@ -26,12 +27,14 @@ class TnpProfile extends StatelessWidget {
 
           return BuildTnpProfile(snapshot.data);
         } else if (snapshot.hasError) {
+          //TODO : SHOW ALERT AND ERROR
           return Container(
             width: 100,
             height: 100,
             color: Colors.red,
           );
         } else {
+          //TODO LOADING
           return CircularProgressIndicator();
         }
       },
@@ -60,23 +63,31 @@ class BuildTnpProfile extends StatelessWidget {
       width: size.width,
       height: size.height,
       color: Theme.of(context).primaryColor,
-      child: Column(
+      child: ListView(
         children: [
-          _buildProfileTextAndIcon(context),
+          _buildProfileTextAndIcon(context, PROFILE),
           _buildBasicProfileSection(context, personalInfo),
+          _buildProfileTextAndIcon(context, 'About College'),
+          _buildAboutCollege(context),
         ],
       ),
     );
   }
 }
 
-Widget _buildProfileTextAndIcon(BuildContext context) {
+Widget _buildProfileTextAndIcon(BuildContext context, String headline) {
   Size size = MediaQuery.of(context).size;
 
   return Container(
     width: size.width,
-    color: Theme.of(context).accentColor.withOpacity(0.05),
     padding: EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: Theme.of(context).accentColor.withOpacity(0.05),
+      border: Border.all(
+        color: Theme.of(context).accentColor,
+        width: 0.2,
+      ),
+    ),
     height: 100,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,7 +101,7 @@ Widget _buildProfileTextAndIcon(BuildContext context) {
           width: 40,
         ),
         Text(
-          PROFILE,
+          headline,
           style: Theme.of(context).textTheme.headline4,
         ),
       ],
@@ -106,7 +117,7 @@ Widget _buildBasicProfileSection(BuildContext context, dynamic personalInfo) {
     width: size.width,
     margin: EdgeInsets.fromLTRB(30, 30, 0, 0),
     padding: EdgeInsets.all(50),
-    height: 600,
+    height: 500,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -115,6 +126,9 @@ Widget _buildBasicProfileSection(BuildContext context, dynamic personalInfo) {
             _displayProfilePicture(personalInfo["profilePicture"]),
             SizedBox(
               height: 10,
+            ),
+            SizedBox(
+              width: 100,
             ),
             _editProfilePicture(context),
           ],
@@ -134,9 +148,8 @@ Widget _displayProfilePicture(String profileImage) {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),
       ),
-      child: Image.network(
-        profileImage,
-        scale: 0.9,
+      child: Image(
+        image: NetworkImage(profileImage),
       ),
     ),
   );
@@ -223,5 +236,23 @@ Widget _displayProfileData(BuildContext context, dynamic personalInfo) {
       // Text(''),
       // Text(personalInfo["phone"]),
     ],
+  );
+}
+
+Widget _buildAboutCollege(BuildContext context) {
+  return FractionallySizedBox(
+    widthFactor: 0.8,
+    child: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: Text(
+            //TODO THIS NEEDS TO COME FROM API CHANGE LATER
+            ABOUT_COLLEGE,
+            style: Theme.of(context).textTheme.headline4,
+          ),
+        ),
+      ],
+    ),
   );
 }

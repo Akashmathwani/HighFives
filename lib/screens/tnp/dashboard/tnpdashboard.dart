@@ -33,23 +33,21 @@ class TnpDashBoard extends StatelessWidget {
           body: Container(
             width: size.width,
             height: size.height,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  NavBarCommon(navBarHeight),
-                  Container(
-                    width: size.width,
-                    height: size.height,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SideView(),
-                        DashBoardBody(item),
-                      ],
-                    ),
+            child: ListView(
+              children: [
+                NavBarCommon(navBarHeight),
+                Container(
+                  width: size.width,
+                  height: size.height,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SideView(),
+                      DashBoardBody(item),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -82,25 +80,22 @@ Widget _getSelectedWidget(String menuItem, BuildContext context) {
   }
 
   Size size = MediaQuery.of(context).size;
-  return SingleChildScrollView(
-    child: Column(
-      children: [
-        Container(
-          width: size.width - SIDE_VIEW_WIDTH,
-          height: size.height,
-          color: Theme.of(context).accentColor.withOpacity(0.05),
-          padding: EdgeInsets.all(40),
-          child: childWidget,
-        ),
-        Container(
-          width: size.width - SIDE_VIEW_WIDTH,
-          height: size.height,
-          color: Theme.of(context).accentColor.withOpacity(0.05),
-          padding: EdgeInsets.all(40),
-          child: childWidget,
-        ),
-      ],
+  return Container(
+    width: size.width - SIDE_VIEW_WIDTH,
+    height: size.height,
+    // padding: EdgeInsets.all(5),
+    decoration: BoxDecoration(
+      color: Theme.of(context).accentColor.withOpacity(0.05),
+
+      // boxShadow: [
+      //   BoxShadow(
+      //     blurRadius: 3,
+      //   ),
+      // ],
     ),
+    // color: Theme.of(context).accentColor.withOpacity(0.05),
+    // padding: EdgeInsets.all(40),
+    child: childWidget,
   );
 
   // if (menuItem != null && menuItem == SIDEMENULIST[2]) {

@@ -32,6 +32,7 @@ dependencies:
   flutter_secure_storage: ^3.3.3
   dio: ^3.0.9
   get_it: ^4.0.3
+  cached_network_image: ^2.2.0+1
 
 dev_dependencies:
   flutter_test:

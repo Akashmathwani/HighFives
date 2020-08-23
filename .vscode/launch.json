@@ -16,6 +16,7 @@
       "request": "launch",
       "type": "dart",
       "program": "lib/main_dev.dart"
+      // "flutterMode": "profile"
     },
     {
       "name": "Flutter Prod",
