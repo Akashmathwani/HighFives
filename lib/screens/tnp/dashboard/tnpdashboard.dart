@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:highfives_ui/constants/const/sideMenuItems.dart';
 import 'package:highfives_ui/constants/const/size.dart';
+import 'package:highfives_ui/screens/employer/profile/employer_profile.dart';
 import 'package:highfives_ui/screens/tnp/communications/manage_existing/view.dart';
 import 'package:highfives_ui/screens/tnp/dashboard/sideview.dart';
 import 'package:highfives_ui/screens/tnp/dashboard/sidemenumodel.dart';
 import 'package:highfives_ui/screens/tnp/profile/profile.dart';
 import 'package:highfives_ui/screens/utils/navbar.dart';
+import 'package:highfives_ui/screens/utils/pdfrender.dart';
 import 'package:provider/provider.dart';
 
 class TnpView extends StatelessWidget {
@@ -33,23 +35,21 @@ class TnpDashBoard extends StatelessWidget {
           body: Container(
             width: size.width,
             height: size.height,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  NavBarCommon(navBarHeight),
-                  Container(
-                    width: size.width,
-                    height: size.height,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SideView(),
-                        DashBoardBody(item),
-                      ],
-                    ),
+            child: ListView(
+              children: [
+                NavBarCommon(navBarHeight),
+                Container(
+                  width: size.width,
+                  height: size.height,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SideView(),
+                      DashBoardBody(item),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -82,25 +82,22 @@ Widget _getSelectedWidget(String menuItem, BuildContext context) {
   }
 
   Size size = MediaQuery.of(context).size;
-  return SingleChildScrollView(
-    child: Column(
-      children: [
-        Container(
-          width: size.width - SIDE_VIEW_WIDTH,
-          height: size.height,
-          color: Theme.of(context).accentColor.withOpacity(0.05),
-          padding: EdgeInsets.all(40),
-          child: childWidget,
-        ),
-        Container(
-          width: size.width - SIDE_VIEW_WIDTH,
-          height: size.height,
-          color: Theme.of(context).accentColor.withOpacity(0.05),
-          padding: EdgeInsets.all(40),
-          child: childWidget,
-        ),
-      ],
+  return Container(
+    width: size.width - SIDE_VIEW_WIDTH,
+    height: size.height,
+    // padding: EdgeInsets.all(5),
+    decoration: BoxDecoration(
+      color: Theme.of(context).accentColor.withOpacity(0.05),
+
+      // boxShadow: [
+      //   BoxShadow(
+      //     blurRadius: 3,
+      //   ),
+      // ],
     ),
+    // color: Theme.of(context).accentColor.withOpacity(0.05),
+    // padding: EdgeInsets.all(40),
+    child: childWidget,
   );
 
   // if (menuItem != null && menuItem == SIDEMENULIST[2]) {

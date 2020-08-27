@@ -7,7 +7,7 @@ const tnpProfileMock = {
     "phone": "9541141470",
     "email": "tnp@highfives.com",
     "profilePicture":
-        "https://cdn6.f-cdn.com/contestentries/1386480/27705380/5b6717d525868_thumb900.jpg",
+        "https://cdn.dribbble.com/users/2364329/screenshots/5930135/aa.jpg",
     "position": "",
   },
   "college": {"collegeId": 1, "logo": "", "info": ""},

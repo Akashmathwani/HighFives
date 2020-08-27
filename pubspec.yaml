@@ -32,6 +32,7 @@ dependencies:
   flutter_secure_storage: ^3.3.3
   dio: ^3.0.9
   get_it: ^4.0.3
+  pdf: ^1.11.0
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +40,7 @@ dev_dependencies:
   mockito: ^4.1.1
   test_coverage: ^0.4.2
   ansicolor: ^1.0.2
+  flare_flutter: ^2.0.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

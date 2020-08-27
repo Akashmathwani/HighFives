@@ -10,9 +10,16 @@ class SideView extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: SIDE_VIEW_WIDTH,
-      margin: EdgeInsets.only(top: 50),
       height: size.height,
-      color: Theme.of(context).primaryColor,
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).primaryColor,
+            blurRadius: 3,
+          ),
+        ],
+      ),
       child: SingleChildScrollView(
         child: Column(
           children: _sideMenuItemsList(context),
@@ -59,8 +66,8 @@ List<Widget> _sideMenuItemsList(BuildContext context) {
               children: [
                 Center(
                   child: Icon(
-                    Icons.arrow_forward,
-                    size: 30,
+                    Icons.menu,
+                    size: 20,
                     color: Theme.of(context).accentColor,
                   ),
                 ),
