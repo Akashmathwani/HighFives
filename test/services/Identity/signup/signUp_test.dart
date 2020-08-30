@@ -15,10 +15,6 @@ main() {
 
     test('should return token if sign up is success or resposne is 201',
         () async {
-      final httpClient = MockClient();
-
-      // when(httpClient.getData(path, null)).thenAnswer(
-      //     (_) async => http.Response(signUpResMock.toString(), 201));
       var res = await signUpService.attemptSignUp(email, password, null);
 
       expect(res != null, true);
