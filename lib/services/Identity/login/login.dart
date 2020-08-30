@@ -11,8 +11,6 @@ class LoginService {
     final user = {'email': email, 'password': password, 'role': role};
     try {
       var response = await httpClient.postData(url, null, user);
-
-      // var response2 = await httpClient2.getData(path, null);
       if (response.statusCode == 200 &&
           response.data != null &&
           response.data is Map) {
