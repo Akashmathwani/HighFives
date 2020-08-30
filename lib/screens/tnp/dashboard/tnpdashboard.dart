@@ -7,7 +7,6 @@ import 'package:highfives_ui/screens/tnp/dashboard/sideview.dart';
 import 'package:highfives_ui/screens/tnp/dashboard/sidemenumodel.dart';
 import 'package:highfives_ui/screens/tnp/profile/profile.dart';
 import 'package:highfives_ui/screens/utils/navbar.dart';
-import 'package:highfives_ui/screens/utils/pdfrender.dart';
 import 'package:provider/provider.dart';
 
 class TnpView extends StatelessWidget {
@@ -80,6 +79,8 @@ Widget _getSelectedWidget(String menuItem, BuildContext context) {
   if (menuItem != null && menuItem == PROFILE) {
     childWidget = TnpProfile();
   }
+
+  childWidget = EmployerProfile();
 
   Size size = MediaQuery.of(context).size;
   return Container(
