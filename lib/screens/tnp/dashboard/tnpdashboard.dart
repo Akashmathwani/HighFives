@@ -62,7 +62,6 @@ class DashBoardBody extends StatelessWidget {
   DashBoardBody(this._menuItem);
   @override
   Widget build(BuildContext context) {
-    print('BUILD $_menuItem');
     Size size = MediaQuery.of(context).size;
     return _getSelectedWidget(_menuItem, context);
   }
@@ -79,8 +78,6 @@ Widget _getSelectedWidget(String menuItem, BuildContext context) {
   if (menuItem != null && menuItem == PROFILE) {
     childWidget = TnpProfile();
   }
-
-  childWidget = EmployerProfile();
 
   Size size = MediaQuery.of(context).size;
   return Container(

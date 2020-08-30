@@ -1,17 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:highfives_ui/constants/const/business.dart';
 import 'package:highfives_ui/resources/Identity/main.dart';
+import 'package:highfives_ui/screens/employer/profile/employer_profile.dart';
 import 'package:highfives_ui/screens/home_page/main.dart';
+import 'package:highfives_ui/screens/login/roleChanger.dart';
+import 'package:highfives_ui/screens/tnp/dashboard/tnpdashboard.dart';
 import 'package:highfives_ui/utils/platform.dart';
 import 'package:highfives_ui/utils/responsiveLayout.dart';
+import 'package:provider/provider.dart';
 
 class LoginLogic extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => RoleChanger(STUDENT, 1),
+      child: LoginLogicWithRole(),
+    );
+  }
+}
+
+class LoginLogicWithRole extends StatelessWidget {
+  static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String _email;
   String _password;
+  String _selectedRole;
   //TODO CORRECT ?
   final _identityResource = IdentityResource(findPlatform());
   @override
   Widget build(BuildContext context) {
+    _selectedRole = Provider.of<RoleChanger>(context).role;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -94,6 +113,8 @@ class LoginLogic extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
+          RoleWithRadioButtons(),
+          SizedBox(height: 10),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Container(
@@ -106,14 +127,12 @@ class LoginLogic extends StatelessWidget {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    print(_email + 'email');
-                    print(_password + 'pwd');
-                    var res = await this._attemptLogin(_email, _password);
-                    print(res);
+
+                    var res = await this
+                        ._attemptLogin(_email, _password, _selectedRole);
                     if (res != null && res) {
                       _formKey.currentState.reset();
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MainHome()));
+                      navigateToHome(_selectedRole, context);
                     }
                   }
                 },
@@ -127,11 +146,73 @@ class LoginLogic extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _attemptSignUp(String email, String password) async {
-    return await _identityResource.signUp(email, password, 'tnp');
+  void navigateToHome(String role, BuildContext context) {
+    switch (role) {
+      case STUDENT:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MainHome()));
+        break;
+      case TNP:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TnpView()));
+        break;
+      case EMPLOYER:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => EmployerProfile()));
+        break;
+    }
   }
 
-  Future<dynamic> _attemptLogin(String email, String password) async {
-    return await _identityResource.login(email, password, 'tnp');
+  Future<dynamic> _attemptSignUp(
+      String email, String password, String role) async {
+    return await _identityResource.signUp(email, password, role);
+  }
+
+  Future<dynamic> _attemptLogin(
+      String email, String password, String role) async {
+    return await _identityResource.login(email, password, role);
+  }
+}
+
+class RoleWithRadioButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    int _roleIndex = Provider.of<RoleChanger>(context).roleIndex;
+    return Row(
+      children: [
+        Radio(
+          activeColor: Theme.of(context).dividerColor,
+          groupValue: _roleIndex,
+          value: 1,
+          onChanged: (t) {
+            _roleIndex = t;
+            Provider.of<RoleChanger>(context, listen: false)
+                .setRole(STUDENT, 1);
+          },
+        ),
+        Text(STUDENT, style: Theme.of(context).textTheme.headline6),
+        Radio(
+          activeColor: Theme.of(context).dividerColor,
+          groupValue: _roleIndex,
+          value: 2,
+          onChanged: (t) {
+            _roleIndex = t;
+            Provider.of<RoleChanger>(context, listen: false).setRole(TNP, 2);
+          },
+        ),
+        Text(TNP, style: Theme.of(context).textTheme.headline6),
+        Radio(
+          activeColor: Theme.of(context).dividerColor,
+          groupValue: _roleIndex,
+          value: 3,
+          onChanged: (t) {
+            _roleIndex = t;
+            Provider.of<RoleChanger>(context, listen: false)
+                .setRole(EMPLOYER, 3);
+          },
+        ),
+        Text(EMPLOYER, style: Theme.of(context).textTheme.headline6),
+      ],
+    );
   }
 }

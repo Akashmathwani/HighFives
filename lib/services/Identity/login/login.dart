@@ -4,11 +4,13 @@ class LoginService {
   final httpClient = UiHttpClient();
   Future<Map<String, dynamic>> attemptLogin(
       String email, String password, String role) async {
-    const path = '/identity/loginWithEmailAndPasswordAndRole';
+    //
+    const url =
+        'https://be-identity.azurewebsites.net/Identity/LoginWithEmailAndPasswordAndRole';
 
     final user = {'email': email, 'password': password, 'role': role};
     try {
-      var response = await httpClient.postData(path, null, user);
+      var response = await httpClient.postData(url, null, user);
 
       // var response2 = await httpClient2.getData(path, null);
       if (response.statusCode == 200 &&
