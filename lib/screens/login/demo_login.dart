@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:highfives_ui/resources/Identity/main.dart';
+import 'package:highfives_ui/routing/route.dart';
 import 'package:highfives_ui/screens/home_page/main.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:highfives_ui/screens/loading.dart';
 import 'package:highfives_ui/utils/platform.dart';
+import 'package:highfives_ui/utils/widgets/Loading/cubegrid.dart';
 
 //TODO REMOVE THIS:: THIS IS ONLY FOR TESTING IDENTITY LOGIC
 // WE SHOULD MAKE FUNCTIONS FRO DIFFERENT COMPONENTS> NOT MAKING IN THIS AS DEMO
@@ -125,17 +128,18 @@ class _DemoLoginState extends State<DemoLogin> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                     if (_formKey.currentState.validate()) {
-                                        _formKey.currentState.save();
-                                        var res = await this
-                                            ._attemptSignUp(_email, _password);
-                                        if (res != null && res) {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => MainHome()));
-                                        }
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+                                      var res = await this
+                                          ._attemptSignUp(_email, _password);
+                                      if (res != null && res) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MainHome()));
                                       }
+                                    }
                                   },
                                 ),
                                 FlatButton(
@@ -158,10 +162,7 @@ class _DemoLoginState extends State<DemoLogin> {
                                           ._attemptLogin(_email, _password);
                                       print(res);
                                       if (res != null) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => MainHome()));
+                                        print('loading data .....');
                                       }
                                     }
                                   },
