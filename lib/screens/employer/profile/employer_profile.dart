@@ -1,14 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:highfives_ui/constants/const/business.dart';
 import 'package:highfives_ui/constants/const/defaults.dart';
 import 'package:highfives_ui/constants/const/sideMenuItems.dart';
-import 'package:highfives_ui/models/tnp/tnpProfileModel.dart';
+import 'package:highfives_ui/models/employer/employerProfileModel.dart';
 import 'package:highfives_ui/resources/profile/profile.dart';
+import 'package:highfives_ui/screens/employer/jobDescription/jd.dart';
 import 'package:highfives_ui/screens/utils/loading.dart';
 
 //Its a Scrollable View with many sections like basic profile
-// About College Description and location
+// About Company Description and Job Description
 
-class TnpProfile extends StatelessWidget {
+class EmployerProfile extends StatelessWidget {
   Profile _profile;
 
   get profile {
@@ -19,10 +23,10 @@ class TnpProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getTnpProfile(),
+      future: getEmployerProfile(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
-          return BuildTnpProfile(snapshot.data);
+          return BuildEmployerProfile(snapshot.data);
         } else if (snapshot.hasError) {
           //TODO : SHOW ALERT AND ERROR
           return Container(
@@ -38,24 +42,25 @@ class TnpProfile extends StatelessWidget {
     );
   }
 
-  Future<dynamic> getTnpProfile() {
-    return profile.getProfile('tnp');
+  Future<dynamic> getEmployerProfile() {
+    return profile.getProfile(EMPLOYER);
   }
 }
 
-class BuildTnpProfile extends StatelessWidget {
+class BuildEmployerProfile extends StatelessWidget {
   final _profileData;
-  BuildTnpProfile(this._profileData);
-  TnpProfileModel _tnpProfileModel;
+  BuildEmployerProfile(this._profileData);
+  EmployerProfileModel _employerProfileModel;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    _tnpProfileModel = TnpProfileModel.fromMap(this._profileData);
-    var _profileMap = _tnpProfileModel.toMap();
-    var personalInfo = _profileMap["personal"];
-    print('#1 $personalInfo');
+    _employerProfileModel = EmployerProfileModel.fromMap(this._profileData);
+    var profileMap = _employerProfileModel.toMap();
+    var personalInfo = profileMap["personal"];
+    var jobDescriptions = profileMap["jobDescriptions"];
+
     return Container(
       width: size.width,
       height: size.height,
@@ -64,8 +69,10 @@ class BuildTnpProfile extends StatelessWidget {
         children: [
           _buildProfileTextAndIcon(context, PROFILE),
           _buildBasicProfileSection(context, personalInfo),
-          _buildProfileTextAndIcon(context, 'About College'),
-          _buildAboutCollege(context),
+          _buildProfileTextAndIcon(context, 'About Company'),
+          _buildAboutCompnay(context),
+          _buildProfileTextAndIcon(context, 'Job Descriptions'),
+          EmployerJobDescriptions(jobDescriptions),
         ],
       ),
     );
@@ -168,7 +175,6 @@ Widget _editProfilePicture(BuildContext context) {
 }
 
 Widget _displayProfileData(BuildContext context, dynamic personalInfo) {
-  print('ui ${personalInfo["firstName"]}');
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -232,7 +238,7 @@ Widget _displayProfileData(BuildContext context, dynamic personalInfo) {
   );
 }
 
-Widget _buildAboutCollege(BuildContext context) {
+Widget _buildAboutCompnay(BuildContext context) {
   return FractionallySizedBox(
     widthFactor: 0.8,
     child: Column(
