@@ -5,7 +5,7 @@ import 'package:highfives_ui/constants/const/theme.dart';
 import 'package:highfives_ui/constants/const/token.dart';
 import 'package:highfives_ui/resources/Identity/main.dart';
 import 'package:highfives_ui/screens/home_page/main.dart';
-import 'package:highfives_ui/screens/tnp/dashboard/tnpdashboard.dart';
+import 'package:highfives_ui/screens/login/login.dart';
 import 'package:highfives_ui/utils/themeChanger.dart';
 import 'package:provider/provider.dart';
 import 'package:highfives_ui/utils/platform.dart';
@@ -40,7 +40,7 @@ class MaterialAppWithTheme extends StatelessWidget {
                 context, MaterialPageRoute(builder: (context) => MainHome()));
           } else {
             //TODO SHOULD BE LOGINUI
-            return TnpView();
+            return LoginUI();
           }
         },
       ),

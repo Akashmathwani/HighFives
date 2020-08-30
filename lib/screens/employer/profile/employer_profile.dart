@@ -22,23 +22,26 @@ class EmployerProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getEmployerProfile(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.hasData) {
-          return BuildEmployerProfile(snapshot.data);
-        } else if (snapshot.hasError) {
-          //TODO : SHOW ALERT AND ERROR
-          return Container(
-            width: 100,
-            height: 100,
-            color: Colors.red,
-          );
-        } else {
-          //TODO LOADING
-          return Loading();
-        }
-      },
+    return Scaffold(
+      body: FutureBuilder(
+        future: getEmployerProfile(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            return BuildEmployerProfile(snapshot.data);
+          } else if (snapshot.hasError) {
+            //TODO : SHOW ALERT AND ERROR
+            return Container(
+              //TODO
+              width: 100,
+              height: 100,
+              color: Colors.red,
+            );
+          } else {
+            //TODO LOADING
+            return Loading();
+          }
+        },
+      ),
     );
   }
 

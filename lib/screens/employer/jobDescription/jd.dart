@@ -3,35 +3,6 @@ import 'package:highfives_ui/screens/utils/pdfrender.dart';
 import 'dart:html' as html;
 import 'dart:js' as js;
 
-class EmployerJobDescription extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return GridView.builder(
-      itemCount: 10,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 8,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          height: 200,
-          width: 200,
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).accentColor.withOpacity(0.2),
-              blurRadius: 3,
-            ),
-          ]),
-          child: Card(
-            color: Theme.of(context).primaryColor,
-            child: PdfDemo(),
-          ),
-        );
-      },
-    );
-  }
-}
-
 class EmployerJobDescriptions extends StatelessWidget {
   List<dynamic> _jobDescriptions;
   EmployerJobDescriptions(this._jobDescriptions);
@@ -64,7 +35,7 @@ Widget _buildHeadings() {
       children: [
         Expanded(
           flex: 1,
-          child: Center(child: Text('N')),
+          child: Center(child: Text('No.')),
         ),
         Expanded(
           flex: 4,
